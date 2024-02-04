@@ -2,8 +2,10 @@ import Link from 'next/link';
 import { formInputState } from '../../../atoms/form-input';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { useEffect } from 'react';
+import { useSingleTabComplete } from '../../../hooks/use-single-tab-complete';
 
 export default function BarCompletePage() {
+  useSingleTabComplete();
   const data = useRecoilValue(formInputState);
   // FIXME: ここでglobalに保存していた値をクリアする？よくわからない
   const resetFormInputState = useResetRecoilState(formInputState);

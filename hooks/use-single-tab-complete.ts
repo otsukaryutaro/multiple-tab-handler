@@ -8,6 +8,7 @@ export const useSingleTabComplete = () => {
   useEffect(() => {
     const tabState = localStorage.getItem('tabState');
 
+    // FIXME: confirmから来た時にnullになってる
     if (tabState !== 'confirm') {
       throw new Error('Same page');
     }

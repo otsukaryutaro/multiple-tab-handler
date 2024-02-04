@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useSingleTabConfirm } from '../../../../hooks/use-single-tab-confirm';
 
 export default function BarCreateConfirm() {
-  useSingleTabConfirm('/bar/create');
+  useSingleTabConfirm('/bar/complete');
   const router = useRouter();
   const data = useRecoilValue(formInputState);
 

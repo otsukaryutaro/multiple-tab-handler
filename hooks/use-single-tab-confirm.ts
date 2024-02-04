@@ -36,7 +36,7 @@ export const useSingleTabConfirm = (beforeUrl: string) => {
   // router.pushで遷移時に実行し、input画面への遷移だった場合ははtabStateをinputに戻す
   useEffect(() => {
     const handler = (url: string) => {
-      if (url === beforeUrl) localStorage.setItem('tabState', 'input');
+      if (url === beforeUrl) localStorage.removeItem('tabState');
     };
 
     router.events.on('routeChangeStart', (url) => handler(url));

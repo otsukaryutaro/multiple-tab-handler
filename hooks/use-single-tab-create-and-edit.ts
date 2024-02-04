@@ -17,33 +17,28 @@ export const useSingleTabCreateAndEdit = (forwardTo: string) => {
     localStorage.setItem('tabState', 'input');
     // 初期表示が成功
     flag.current = true;
-  }, []);
 
-  useEffect(() => {
+    // リロードやタブを閉じるときに実行される
+    // ただし、初期表示で失敗した場合は実行されない
     const handler = () => {
-      // リロードやタブを閉じるときに実行される
-      // ただし、初期表示で失敗した場合は実行されない
       if (flag.current) {
         localStorage.removeItem('tabState');
       }
     };
     window.addEventListener('beforeunload', handler);
+
+    // router.pushで遷移時に実行し、confirm画面への遷移以外ではtabStateを削除する
+    const routeHandler = (nextUrl: string) => {
+      console.log('create before if');
+      if (nextUrl !== forwardTo) localStorage.removeItem('tabState');
+      console.log('create after if');
+    };
+
+    router.events.on('routeChangeStart', routeHandler);
+
     return () => {
       window.removeEventListener('beforeunload', handler);
-    };
-  }, []);
-
-  // FIXME: create -> confirm -> create -> confirmするとエラーになる、原因がよくわからない
-  // router.pushで遷移時に実行し、confirm画面への遷移以外ではtabStateを削除する 
-  useEffect(() => {
-    const handler = (nextUrl: string) => {
-      if (nextUrl !== forwardTo) localStorage.removeItem('tabState');
-    };
-
-    router.events.on('routeChangeStart', (nextUrl) => handler(nextUrl));
-
-    return () => {
-      router.events.off('routeChangeStart', (nextUrl) => handler(nextUrl));
+      router.events.off('routeChangeStart', routeHandler);
     };
   }, []);
 };

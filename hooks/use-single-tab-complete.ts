@@ -6,9 +6,11 @@ export const useSingleTabComplete = () => {
   const flag = useRef(false);
 
   useEffect(() => {
+    /* ==========================
+      localStorageをチェックして、エラーじゃなければtabStateを削除する
+    ============================ */
     const tabState = localStorage.getItem('tabState');
 
-    // FIXME: confirmから来た時にnullになってる
     if (tabState !== 'confirm') {
       throw new Error('Same page');
     }
@@ -16,9 +18,11 @@ export const useSingleTabComplete = () => {
     localStorage.removeItem('tabState');
     // 初期表示が成功
     flag.current = true;
-  }, []);
 
-  useEffect(() => {
+    /* ==========================
+      リロードやタブを閉じるときに実行される
+      ただし、初期表示で失敗した場合は実行されない
+    ============================ */
     const handler = () => {
       // リロードやタブを閉じるときに実行される
       // ただし、初期表示で失敗した場合は実行されない

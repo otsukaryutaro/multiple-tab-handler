@@ -8,7 +8,9 @@ export const useSingleTabConfirm = (forwardTo: string) => {
   const flag = useRef(false);
 
   useEffect(() => {
-    // localStorageを更新する処理
+    /* ==========================
+      localStorageをチェックして、エラーじゃなければtabStateを更新する
+    ============================ */
     const tabState = localStorage.getItem('tabState');
     console.log({ tabState });
 
@@ -20,8 +22,10 @@ export const useSingleTabConfirm = (forwardTo: string) => {
     // 初期表示が成功
     flag.current = true;
 
-    // リロードやタブを閉じるときに実行される
-    // ただし、初期表示で失敗した場合は実行されない
+    /* ==========================
+      リロードやタブを閉じるときに実行される
+      ただし、初期表示で失敗した場合は実行されない
+    ============================ */
     const handler = () => {
       if (flag.current) {
         localStorage.removeItem('tabState');
@@ -29,7 +33,9 @@ export const useSingleTabConfirm = (forwardTo: string) => {
     };
     window.addEventListener('beforeunload', handler);
 
-    // router.pushで遷移時に実行し、input画面への遷移だった場合ははtabStateをinputに戻す
+    /* ==========================
+      router.pushで遷移時に実行し、complete画面への遷移以外ではtabStateを削除する
+    ============================ */
     const routeHandler = (nextUrl: string) => {
       console.log('confirm before if');
       // completeに進むときだけはエラーにしない

@@ -8,6 +8,9 @@ export const useSingleTabCreateAndEdit = (forwardTo: string) => {
   const flag = useRef(false);
 
   useEffect(() => {
+    /* ==========================
+      localStorageをチェックして、エラーじゃなければtabStateをセットする
+    ============================ */
     const tabState = localStorage.getItem('tabState');
 
     if (tabState) {
@@ -18,8 +21,10 @@ export const useSingleTabCreateAndEdit = (forwardTo: string) => {
     // 初期表示が成功
     flag.current = true;
 
-    // リロードやタブを閉じるときに実行される
-    // ただし、初期表示で失敗した場合は実行されない
+    /* ==========================
+      リロードやタブを閉じるときに実行される
+      ただし、初期表示で失敗した場合は実行されない
+    ============================ */
     const handler = () => {
       if (flag.current) {
         localStorage.removeItem('tabState');
@@ -27,7 +32,9 @@ export const useSingleTabCreateAndEdit = (forwardTo: string) => {
     };
     window.addEventListener('beforeunload', handler);
 
-    // router.pushで遷移時に実行し、confirm画面への遷移以外ではtabStateを削除する
+    /* ==========================
+      router.pushで遷移時に実行し、confirm画面への遷移以外ではtabStateを削除する
+    ============================ */
     const routeHandler = (nextUrl: string) => {
       console.log('create before if');
       if (nextUrl !== forwardTo) localStorage.removeItem('tabState');

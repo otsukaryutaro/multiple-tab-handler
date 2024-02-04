@@ -21,6 +21,7 @@ export default function BarCreateConfirm() {
       <button type="button" onClick={handleConfirm}>
         Bar complete page
       </button>
+      <Link href="/bar/create">Back to create page</Link>
       <Link href="/bar">Bar page</Link>
     </div>
   );

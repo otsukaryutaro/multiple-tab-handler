@@ -3,9 +3,12 @@ import { useEffect, useRef } from 'react';
 export const useSingleTab = () => {
   // 初期表示が成功したかをフラグで管理
   const flag = useRef(false);
+
   useEffect(() => {
     const currentPath = window.location.pathname;
     const storedPath = localStorage.getItem('storedPath');
+
+    console.log({ currentPath, storedPath });
 
     if (storedPath === currentPath) {
       throw new Error('Same page');

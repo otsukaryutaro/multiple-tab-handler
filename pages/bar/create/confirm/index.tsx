@@ -2,8 +2,10 @@ import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import { formInputState } from '../../../../atoms/form-input';
 import { useRouter } from 'next/router';
+import { useSingleTab } from '../../../../hooks/use-single-tab';
 
 export default function BarCreateConfirm() {
+  useSingleTab();
   const router = useRouter();
   const data = useRecoilValue(formInputState);
 

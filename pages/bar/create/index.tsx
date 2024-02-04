@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 import { formInputState } from '../../../atoms/form-input';
 import { useRouter } from 'next/router';
+import { useSingleTab } from '../../../hooks/use-single-tab';
 
 export type Inputs = {
   example: string;
@@ -10,6 +11,7 @@ export type Inputs = {
 };
 
 export default function BarCreate() {
+  useSingleTab();
   const router = useRouter();
   const setFormInputState = useSetRecoilState(formInputState);
   const {

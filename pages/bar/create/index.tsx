@@ -11,6 +11,7 @@ export type Inputs = {
 };
 
 export default function BarCreate() {
+  // FIXME: 詳細にブラウザバックするときに壊れる
   useSingleTabCreateAndEdit();
   const router = useRouter();
   const setFormInputState = useSetRecoilState(formInputState);

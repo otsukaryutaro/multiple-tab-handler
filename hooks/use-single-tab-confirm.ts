@@ -15,10 +15,6 @@ export const useSingleTabConfirm = () => {
     localStorage.setItem('tabState', 'confirm');
     // 初期表示が成功
     flag.current = true;
-
-    return () => {
-      localStorage.removeItem('tabState');
-    };
   }, []);
 
   useEffect(() => {

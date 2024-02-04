@@ -15,10 +15,6 @@ export const useSingleTabCreateAndEdit = () => {
     localStorage.setItem('tabState', 'input');
     // 初期表示が成功
     flag.current = true;
-
-    return () => {
-      localStorage.removeItem('tabState');
-    };
   }, []);
 
   useEffect(() => {

@@ -26,10 +26,7 @@ export default function BarCreate() {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <h1>Bar create page!</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          defaultValue="test"
-          {...(register('example'), { required: true })}
-        />
+        <input {...register('example', { required: true })} />
         <input {...register('exampleRequired', { required: true })} />
         {errors.exampleRequired && <span>This field is required</span>}
         <input type="submit" />

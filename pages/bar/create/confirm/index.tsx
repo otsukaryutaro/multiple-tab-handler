@@ -15,7 +15,7 @@ export default function BarCreateConfirm() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <h1>Bar create confirm page!</h1>
-      <p>{JSON.stringify(data)}</p>
+      <p>JSON: {JSON.stringify(data)}</p>
       <button type="button" onClick={handleConfirm}>
         Bar complete page
       </button>

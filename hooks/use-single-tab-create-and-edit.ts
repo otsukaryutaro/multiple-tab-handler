@@ -33,6 +33,7 @@ export const useSingleTabCreateAndEdit = (forwardTo: string) => {
     };
   }, []);
 
+  // FIXME: create -> confirm -> create -> confirmするとエラーになる、原因がよくわからない
   // router.pushで遷移時に実行し、confirm画面への遷移以外ではtabStateを削除する 
   useEffect(() => {
     const handler = (nextUrl: string) => {

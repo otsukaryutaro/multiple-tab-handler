@@ -5,8 +5,7 @@ import { useRouter } from 'next/router';
 import { useSingleTabConfirm } from '../../../../hooks/use-single-tab-confirm';
 
 export default function BarCreateConfirm() {
-  // FIXME: 新規作成にブラウザバックするときに壊れる
-  useSingleTabConfirm();
+  useSingleTabConfirm('/bar/create');
   const router = useRouter();
   const data = useRecoilValue(formInputState);
 

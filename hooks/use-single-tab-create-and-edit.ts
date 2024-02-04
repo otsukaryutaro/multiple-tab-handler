@@ -1,7 +1,9 @@
+import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 
 // 新規作成や編集画面で、同じページを複数開かないようにする
-export const useSingleTabCreateAndEdit = () => {
+export const useSingleTabCreateAndEdit = (nextUrl: string) => {
+  const router = useRouter();
   // 初期表示が成功したかをフラグで管理
   const flag = useRef(false);
 
@@ -28,6 +30,19 @@ export const useSingleTabCreateAndEdit = () => {
     window.addEventListener('beforeunload', handler);
     return () => {
       window.removeEventListener('beforeunload', handler);
+    };
+  }, []);
+
+  // router.pushで遷移時に実行し、confirm画面への遷移以外ではtabStateを削除する 
+  useEffect(() => {
+    const handler = (url: string) => {
+      if (url !== nextUrl) localStorage.removeItem('tabState');
+    };
+
+    router.events.on('routeChangeStart', (url) => handler(url));
+
+    return () => {
+      router.events.off('routeChangeStart', (url) => handler(url));
     };
   }, []);
 };

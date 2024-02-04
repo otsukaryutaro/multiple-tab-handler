@@ -11,8 +11,7 @@ export type Inputs = {
 };
 
 export default function BarCreate() {
-  // FIXME: 詳細にブラウザバックするときに壊れる
-  useSingleTabCreateAndEdit();
+  useSingleTabCreateAndEdit('/bar/create/confirm');
   const router = useRouter();
   const setFormInputState = useSetRecoilState(formInputState);
   const {

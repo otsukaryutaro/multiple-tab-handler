@@ -1,7 +1,9 @@
+import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 
 // 確認画面で、新規登録・編集および同じページを複数開かないようにする
-export const useSingleTabConfirm = () => {
+export const useSingleTabConfirm = (beforeUrl: string) => {
+  const router = useRouter();
   // 初期表示が成功したかをフラグで管理
   const flag = useRef(false);
 
@@ -28,6 +30,19 @@ export const useSingleTabConfirm = () => {
     window.addEventListener('beforeunload', handler);
     return () => {
       window.removeEventListener('beforeunload', handler);
+    };
+  }, []);
+
+  // router.pushで遷移時に実行し、input画面への遷移だった場合ははtabStateをinputに戻す
+  useEffect(() => {
+    const handler = (url: string) => {
+      if (url === beforeUrl) localStorage.setItem('tabState', 'input');
+    };
+
+    router.events.on('routeChangeStart', (url) => handler(url));
+
+    return () => {
+      router.events.off('routeChangeStart', (url) => handler(url));
     };
   }, []);
 };

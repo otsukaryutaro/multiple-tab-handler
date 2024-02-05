@@ -6,11 +6,11 @@ import { useEffect } from 'react';
 export default function BarBarCompletePage() {
   const data = useRecoilValue(formInputState);
   // FIXME: ここでglobalに保存していた値をクリアする？よくわからない
-  const resetFormInputState = useResetRecoilState(formInputState);
+  // const resetFormInputState = useResetRecoilState(formInputState);
 
-  useEffect(() => {
-    resetFormInputState();
-  }, []);
+  // useEffect(() => {
+  //   resetFormInputState();
+  // }, []);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>

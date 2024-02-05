@@ -14,6 +14,7 @@ export default function BarBarCompletePage() {
 
   useEffect(() => {
     return () => {
+      // ページから移動するときにdataを空にする
       resetFormInputState();
     };
   }, []);

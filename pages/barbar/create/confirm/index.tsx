@@ -9,6 +9,10 @@ export default function BarBarCreateConfirm() {
   const router = useRouter();
   const data = useRecoilValue(formInputState);
 
+  if (data === undefined) {
+    throw Error('resetFormInputState is undefined');
+  }
+
   const handleConfirm = () => {
     console.log({ data });
     router.push('/barbar/complete');

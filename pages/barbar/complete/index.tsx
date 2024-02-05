@@ -4,8 +4,8 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { useSingleTabCompleteEasy } from '../../../hooks/use-single-tab-complete-easy';
 
 export default function BarBarCompletePage() {
-  useSingleTabCompleteEasy();
   const data = useRecoilValue(formInputState);
+  useSingleTabCompleteEasy();
   // FIXME: ここでglobalに保存していた値をクリアする？よくわからない
   // const resetFormInputState = useResetRecoilState(formInputState);
 

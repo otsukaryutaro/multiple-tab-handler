@@ -4,13 +4,14 @@ import { useEffect } from 'react';
 export const useSingleTabCompleteEasy = () => {
   const router = useRouter();
   useEffect(() => {
-    const handler = async () => {
-      alert('You are leaving the page');
-      await router.push('/barbar');
+    const handler = async (event) => {
+      event.preventDefault();
+      event.returnValue = '';
+      await router.push('/');
     };
     window.addEventListener('beforeunload', handler);
     return () => {
       window.removeEventListener('beforeunload', handler);
     };
-  }, []);
+  }, [router]);
 };

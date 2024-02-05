@@ -1,19 +1,22 @@
 import Link from 'next/link';
 import { formInputState } from '../../../atoms/form-input';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useEffect } from 'react';
 
 export default function BarBarCompletePage() {
   const data = useRecoilValue(formInputState);
   // FIXME: ここでglobalに保存していた値をクリアする？よくわからない
-  // const resetFormInputState = useResetRecoilState(formInputState);
+  const resetFormInputState = useResetRecoilState(formInputState);
 
   if (data === undefined) {
     throw Error('resetFormInputState is undefined');
   }
 
-  // useEffect(() => {
-  //   resetFormInputState();
-  // }, []);
+  useEffect(() => {
+    return () => {
+      resetFormInputState();
+    };
+  }, []);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>

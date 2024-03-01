@@ -35,6 +35,7 @@ export default function BarBarCreate() {
         <input type="submit" />
       </form>
       {/* FIXME: ここでlocalstorageをクリアしないといけない */}
+      {/* 他にいいやり方ある？ */}
       <Link href="/barbar">BarBar page</Link>
     </div>
   );

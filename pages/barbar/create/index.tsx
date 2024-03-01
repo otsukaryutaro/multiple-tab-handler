@@ -34,6 +34,7 @@ export default function BarBarCreate() {
         {errors.exampleRequired && <span>This field is required</span>}
         <input type="submit" />
       </form>
+      {/* FIXME: ここでlocalstorageをクリアしないといけない */}
       <Link href="/barbar">BarBar page</Link>
     </div>
   );

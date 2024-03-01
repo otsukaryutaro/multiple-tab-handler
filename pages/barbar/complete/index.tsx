@@ -13,6 +13,16 @@ export default function BarBarCompletePage() {
   }
 
   useEffect(() => {
+    const storedKey = localStorage.getItem('unique-session-key');
+
+    if (storedKey == null) {
+      throw new Error('Same page');
+    }
+
+    if (storedKey) {
+      localStorage.removeItem('unique-session-key');
+    }
+
     return () => {
       // ページから移動するときにdataを空にする
       resetFormInputState();

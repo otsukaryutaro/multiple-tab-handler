@@ -1,22 +1,20 @@
 import { useEffect, useRef } from 'react';
+import { useRecoilValue } from 'recoil';
+import { sessionKey } from '../atoms/unique-session-key';
 
 export const useSingleTabConfirmEasy = () => {
+  const globalSessionKey = useRecoilValue(sessionKey);
   // 初期表示が成功したかをフラグで管理
   const flag = useRef(false);
   useEffect(() => {
-    const storedPath = localStorage.getItem('isConfirm');
-
-    if (storedPath === 'true') {
+    const storedKey = localStorage.getItem('unique-session-key');
+    
+    if (storedKey !== globalSessionKey) {
       throw new Error('Same page');
     }
 
-    localStorage.setItem('isConfirm', 'true');
-    // 初期表示が成功
     flag.current = true;
 
-    return () => {
-      localStorage.removeItem('isConfirm');
-    };
   }, []);
 
   useEffect(() => {

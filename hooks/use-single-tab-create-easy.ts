@@ -1,22 +1,24 @@
 import { useEffect, useRef } from 'react';
+import { useRecoilValue } from 'recoil';
+import { sessionKey } from '../atoms/unique-session-key';
 
 export const useSingleTabCreateEasy = () => {
+  const globalSessionKey = useRecoilValue(sessionKey);
   // 初期表示が成功したかをフラグで管理
   const flag = useRef(false);
   useEffect(() => {
-    const storedPath = localStorage.getItem('isCreate');
+    const storedKey = localStorage.getItem('unique-session-key');
 
-    if (storedPath === 'true') {
-      throw new Error('Same page');
+    if (storedKey == null) {
+      localStorage.setItem('unique-session-key', globalSessionKey);
+      // 初期表示が成功
+      flag.current = true;
+      return;
     }
 
-    localStorage.setItem('isCreate', 'true');
-    // 初期表示が成功
-    flag.current = true;
-
-    return () => {
-      localStorage.removeItem('isCreate');
-    };
+    if (storedKey !== globalSessionKey) {
+      throw new Error('Same page');
+    }
   }, []);
 
   useEffect(() => {

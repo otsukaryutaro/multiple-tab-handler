@@ -22,7 +22,7 @@ export const useSingleTabConfirmEasy = () => {
       // リロードやタブを閉じるときに実行される
       // ただし、初期表示で失敗した場合は実行されない
       if (flag.current) {
-        localStorage.removeItem('isConfirm');
+        localStorage.removeItem('unique-session-key');
       }
     };
     window.addEventListener('beforeunload', handler);

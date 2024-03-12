@@ -4,6 +4,7 @@ import { useSetRecoilState } from 'recoil';
 import { formInputState } from '../../../atoms/form-input';
 import { useRouter } from 'next/router';
 import { useSingleTabCreateEasy } from '../../../hooks/use-single-tab-create-easy';
+import { useId } from 'react';
 
 export type Inputs = {
   example: string;
@@ -33,6 +34,8 @@ export default function BarBarCreate() {
         {errors.exampleRequired && <span>This field is required</span>}
         <input type="submit" />
       </form>
+      {/* FIXME: ここでlocalstorageをクリアしないといけない */}
+      {/* 他にいいやり方ある？ */}
       <Link href="/barbar">BarBar page</Link>
     </div>
   );

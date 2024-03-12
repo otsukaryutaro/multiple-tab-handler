@@ -3,7 +3,6 @@ import { useRecoilValue } from 'recoil';
 import { formInputState } from '../../../../atoms/form-input';
 import { useRouter } from 'next/router';
 import { useSingleTabConfirmEasy } from '../../../../hooks/use-single-tab-confirm-easy';
-import { set } from 'react-hook-form';
 
 export default function BarBarCreateConfirm() {
   useSingleTabConfirmEasy();
@@ -18,7 +17,7 @@ export default function BarBarCreateConfirm() {
 
   const handleConfirm = () => {
     console.log({ data });
-    router.replace('/barbar/complete');
+    router.push('/barbar/complete');
   };
 
   return (

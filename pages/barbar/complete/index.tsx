@@ -1,3 +1,4 @@
+import { getCookie, deleteCookie } from 'cookies-next';
 import Link from 'next/link';
 import { formInputState } from '../../../atoms/form-input';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
@@ -13,6 +14,16 @@ export default function BarBarCompletePage() {
   }
 
   useEffect(() => {
+    const storedKey = getCookie('unique-session-key');
+
+    if (storedKey == null) {
+      throw new Error('Same page');
+    }
+
+    if (storedKey) {
+      deleteCookie('unique-session-key');
+    }
+
     return () => {
       // ページから移動するときにdataを空にする
       resetFormInputState();

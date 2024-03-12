@@ -1,22 +1,20 @@
 import { useEffect, useRef } from 'react';
+import { getCookie, deleteCookie } from 'cookies-next';
+import { useRecoilValue } from 'recoil';
+import { sessionKey } from '../atoms/unique-session-key';
 
 export const useSingleTabConfirmEasy = () => {
+  const globalSessionKey = useRecoilValue(sessionKey);
   // 初期表示が成功したかをフラグで管理
   const flag = useRef(false);
   useEffect(() => {
-    const storedPath = localStorage.getItem('isConfirm');
+    const storedKey = getCookie('unique-session-key');
 
-    if (storedPath === 'true') {
+    if (storedKey !== globalSessionKey) {
       throw new Error('Same page');
     }
 
-    localStorage.setItem('isConfirm', 'true');
-    // 初期表示が成功
     flag.current = true;
-
-    return () => {
-      localStorage.removeItem('isConfirm');
-    };
   }, []);
 
   useEffect(() => {
@@ -24,7 +22,7 @@ export const useSingleTabConfirmEasy = () => {
       // リロードやタブを閉じるときに実行される
       // ただし、初期表示で失敗した場合は実行されない
       if (flag.current) {
-        localStorage.removeItem('isConfirm');
+        deleteCookie('unique-session-key');
       }
     };
     window.addEventListener('beforeunload', handler);

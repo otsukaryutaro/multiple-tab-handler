@@ -1,3 +1,4 @@
+import { getCookie, deleteCookie } from 'cookies-next';
 import Link from 'next/link';
 import { formInputState } from '../../../atoms/form-input';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
@@ -13,14 +14,14 @@ export default function BarBarCompletePage() {
   }
 
   useEffect(() => {
-    const storedKey = localStorage.getItem('unique-session-key');
+    const storedKey = getCookie('unique-session-key');
 
     if (storedKey == null) {
       throw new Error('Same page');
     }
 
     if (storedKey) {
-      localStorage.removeItem('unique-session-key');
+      deleteCookie('unique-session-key');
     }
 
     return () => {

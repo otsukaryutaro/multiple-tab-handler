@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { getCookie, deleteCookie } from 'cookies-next';
 import { useRecoilValue } from 'recoil';
 import { sessionKey } from '../atoms/unique-session-key';
 
@@ -7,14 +8,13 @@ export const useSingleTabConfirmEasy = () => {
   // 初期表示が成功したかをフラグで管理
   const flag = useRef(false);
   useEffect(() => {
-    const storedKey = localStorage.getItem('unique-session-key');
-    
+    const storedKey = getCookie('unique-session-key');
+
     if (storedKey !== globalSessionKey) {
       throw new Error('Same page');
     }
 
     flag.current = true;
-
   }, []);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const useSingleTabConfirmEasy = () => {
       // リロードやタブを閉じるときに実行される
       // ただし、初期表示で失敗した場合は実行されない
       if (flag.current) {
-        localStorage.removeItem('unique-session-key');
+        deleteCookie('unique-session-key');
       }
     };
     window.addEventListener('beforeunload', handler);

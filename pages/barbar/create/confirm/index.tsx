@@ -17,7 +17,7 @@ export default function BarBarCreateConfirm() {
 
   const handleConfirm = () => {
     console.log({ data });
-    router.replace('/barbar/complete');
+    router.push('/barbar/complete');
   };
 
   return (
